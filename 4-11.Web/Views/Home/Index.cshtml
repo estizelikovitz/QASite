@@ -1,0 +1,52 @@
+﻿@using _4_11.Data
+@model IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        @foreach (Question q in Model.Questions)
+        {
+        <div class="card card-body bg-light">
+            <h4>
+                <a href="/home/viewquestion?id=@q.Id">
+                    @q.Title
+                </a>
+            </h4>
+            <div>
+                <span>Tags:</span>
+                @foreach (Tag t in q.QuestionTag.Select(qt => qt.Tag))
+                {
+                    <span class="badge badge-primary">@t.Name</span>
+
+                }
+            </div>
+            <div style="margin-top: 10px;">
+                @q.Text
+            </div>
+            @if (q.Likes != null)
+            {
+                <span> Likes: @q.Likes.Count()</span>
+            }
+            else
+            {
+                <span> Likes: 0</span>
+
+            }
+            <br />
+            @if (q.Answers != null)
+            {
+                <span>@q.Answers.Count() answer(s)</span>
+            }
+            else
+            {
+                <span> 0 answers</span>
+
+            }
+        </div>
+        <br/>
+        }
+
+    </div>
+</div>
